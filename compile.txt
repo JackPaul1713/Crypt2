@@ -1,12 +1,7 @@
 DEFAULT
-g++ -std=c++17 -o *name* *.cpp
-chmod +rw * && g++ -std=c++17 -o *name* *.cpp
-g++ -std=c++17 -o *name* *name*.cpp
-chmod +rw * && g++ -std=c++17 -o *name* *name*.cpp
+g++ -std=c++17 -o crypt2.exe *.cpp
+chmod +rw * && g++ -std=c++17 -o crypt2.exe *.cpp
 
 WARNINGS
-g++ -std=c++17 -Wall -Wextra -pedantic -Weffc++ -o *name*.exe *.cpp
-chmod +rw * && g++ -std=c++17 -Wall -Wextra -pedantic -Weffc++ -o *name*.exe *.cpp
-
-AUTORUN
-chmod +rw * && g++ -std=c++17 -o *name*.exe *.cpp && ./*name*.exe
+g++ -std=c++17 -Wall -Wextra -pedantic -Weffc++ -o crypt2.exe *.cpp
+chmod +rw * && g++ -std=c++17 -Wall -Wextra -pedantic -Weffc++ -o crypt2.exe *.cpp
