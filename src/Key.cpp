@@ -3,24 +3,56 @@
 #include "Key.h"
 
 using namespace std;
-void load();
-void download();
+
+//// helpers ////
+void swap(Key &key)
+{
+  // swap all attributes between objects:
+  swap(this->file, key->file);
+  swap(this->key, key->key);
+  swap(this->mold, key->mold);
+  swap(this->password, key->password);
+  swap(this->length, key->length);
+}
+char generateRandomByte(int number, int modifier)
+{
+  return((rand() % number) - modifier);
+}
+vector<char> Key::generateKey() // generates key of lenght length(attribute)
+{
+  vector<char> key(length);
+  for(int i = 0; i < length; i++) // loop through key
+  {
+    key.at(i) = generateRandomByte(255, -128); // assign random char
+  }
+  return(key);
+}
+
+//// save ////
+void Key::load()
+{
+
+}
+void Key::download()
+{
+
+}
 
 //// constructors ////
-Key::Key(std::string file, std::string password, int length) // new key
+Key::Key(std::string file, std::string password, int length): // new key
+file(file), password(password), length(length)
 {
-
+  key = generate_key();
+  download();
 }
-Key::Key(std::string file, std::string password) // old key
+Key::Key(std::string file, std::string password): // existing key
+file(file), password(password)
 {
-
+  load();
 }
-
-//// deconstructor ////
-Key::~Key()
-{
-
-}
+Key::Key(const Key &key): // copy
+file(key->file), key(key->key), mold(key->mold), password(key->password), length(key->length)
+{}
 
 //// modify ////
 void Key::change_password()
@@ -31,25 +63,15 @@ void Key::change_length()
 {
 
 }
-void Key::scramble()
+void Key::regenerate()
 {
 
 }
 
-//// use ////
-void Key::encrypt(unsigned char*& bites)
+//// overloads ////
+Key & operator=(Key &key)
 {
-
-}
-void Key::decrypt(unsigned char*& bites)
-{
-
-}
-void Key::encrypt_file(string file)
-{
-
-}
-void Key::decrypt_file(string file)
-{
-
+  Key temp_key(key);
+  this->swap(key);
+  return(*this);
 }

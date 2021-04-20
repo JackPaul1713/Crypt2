@@ -6,31 +6,32 @@
 class Key
 {
   private:
+    // attributes:
     std::string file;
-    unsigned char* pkey;
-    unsigned char* key;
+    vector<char> key;
     std::string password;
     int length;
-    void load();
-    void download();
+    // helpers:
+    void swap(Key key);
+    char generateRandomByte(int number, int modifier);
+    vector<char> generateKey(); // generates key of lenght length(attribute)
+    // save:
+    void load(); // decrypts key from file
+    void download(); // encrypts key to file
   public:
-    //// constructors ////
+    // constructors:
     Key(std::string file, std::string password, int length); // new key
-    Key(std::string file, std::string password); // old key
-
-    //// deconstructor ////
+    Key(std::string file, std::string password); // existing key
+    Key(Key key); // copy
+    // deconstructor:
     ~Key();
-
-    //// modify ////
-    void change_password();
-    void change_length();
-    void scramble();
-
-    //// use ////
-    void encrypt(unsigned char*& bites);
-    void decrypt(unsigned char*& bites);
-    void encrypt_file(std::string file);
-    void decrypt_file(std::string file);
+    // modify:
+    void changePassword();
+    void changeLength();
+    void regenerate();
 };
+
+// overloads:
+Key & operator=(Key &key);
 
 #endif
