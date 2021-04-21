@@ -4,21 +4,87 @@
 
 using namespace std;
 
+//// constructors ////
+Key::Key(): // default
+file(""), key(), password(""), length(0)
+{}
+Key::Key(string file, string password, int length): // new key
+file(file), key(), password(password), length(length)
+{
+  key = generateKey();
+  download();
+}
+Key::Key(string file, string password): // existing key
+file(file), key(), password(password), length(0)
+{
+  upload();
+}
+Key::Key(const Key &key): // copy
+file(key.file), key(key.key), password(key.password), length(key.length)
+{}
+
+//// deconstructor ////
+Key::~Key()
+{}
+
+//// getters ////
+string Key::getFile()
+{
+  return(file);
+}
+vector<char> Key::getKey()
+{
+  return(key);
+}
+int Key::getLength()
+{
+  return(length);
+}
+
+//// setters ////
+void Key::renameFile(string name) // TODO
+{
+
+}
+void Key::changePassword(string newPassword) // TODO
+{
+
+}
+void Key::changeLength(int newLength) // TODO
+{
+
+}
+void Key::regenerate()
+{
+  key = generateKey();
+  download();
+}
+
+//// save ////
+void Key::upload() // TODO
+{
+
+}
+void Key::download() // TODO
+{
+
+}
+
 //// helpers ////
-void swap(Key &key)
+void swap(Key &key0, Key &key1)
 {
   // swap all attributes between objects:
-  swap(this->file, key->file);
-  swap(this->key, key->key);
-  swap(this->mold, key->mold);
-  swap(this->password, key->password);
-  swap(this->length, key->length);
+  using std::swap;
+  swap(key0.file, key1.file);
+  swap(key0.key, key1.key);
+  swap(key0.password, key1.password);
+  swap(key0.length, key1.length);
 }
-char generateRandomByte(int number, int modifier)
+char Key::generateRandomByte(int number, int modifier)
 {
   return((rand() % number) - modifier);
 }
-vector<char> Key::generateKey() // generates key of lenght length(attribute)
+vector<char> Key::generateKey() // generates key of length this->length
 {
   vector<char> key(length);
   for(int i = 0; i < length; i++) // loop through key
@@ -28,50 +94,9 @@ vector<char> Key::generateKey() // generates key of lenght length(attribute)
   return(key);
 }
 
-//// save ////
-void Key::load()
-{
-
-}
-void Key::download()
-{
-
-}
-
-//// constructors ////
-Key::Key(std::string file, std::string password, int length): // new key
-file(file), password(password), length(length)
-{
-  key = generate_key();
-  download();
-}
-Key::Key(std::string file, std::string password): // existing key
-file(file), password(password)
-{
-  load();
-}
-Key::Key(const Key &key): // copy
-file(key->file), key(key->key), mold(key->mold), password(key->password), length(key->length)
-{}
-
-//// modify ////
-void Key::change_password()
-{
-
-}
-void Key::change_length()
-{
-
-}
-void Key::regenerate()
-{
-
-}
-
 //// overloads ////
-Key & operator=(Key &key)
+Key & Key::operator=(Key key)
 {
-  Key temp_key(key);
-  this->swap(key);
+  swap(*this, key);
   return(*this);
 }

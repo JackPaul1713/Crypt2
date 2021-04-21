@@ -2,31 +2,31 @@
 #define CIPHER_H
 
 #include <string>
+#include <vector>
 #include "Key.h"
+#include "Block.h"
 
 class Cypher
 {
   private:
     // attributes:
     Key key;
-    int addIndex;
-    int scrambleIndex;
-    // helpers:
-    void add(const char* fromBytes, int fromIndex, char* toBytes, int toIndex, int size);
-    void subtract(const char* fromBytes, int fromIndex, char* toBytes, int toIndex, int size);
-    void flipRow(char* bytes, int fromIndex, int toIndex, int size);
-    void flipCol(char* bytes, int fromIndex, int toIndex, int size);
-    void scramble(char* bytes, int index, int size);
-    void unscramble(char* bytes, int index, int size);
   public:
+    // constructors:
+    Cypher(); // default
+    Cypher(Key key);
+    Cypher(const Cypher &cypher); // copy
+    // deconstructor:
+    ~Cypher();
     // actions:
-    void encrypt(char* bytes);
-    void decrypt(char* bytes);
-    void encryptFile(string filename);
-    void decryptFile(string filename);
-}
-
-// overloads:
-Cypher & operator=(Cypher &cypher);
+    void encrypt(char* bytes, int length);
+    void decrypt(char* bytes, int length);
+    void encryptFile(std::string filename);
+    void decryptFile(std::string filename);
+    // helpers:
+    friend void swap(Cypher &cypher0, Cypher &cypher1);
+    // overloads:
+    Cypher & operator=(Cypher &cypher);
+};
 
 #endif
