@@ -9,7 +9,7 @@ using namespace std;
 Cypher::Cypher(): // default
 key()
 {}
-Cypher::Cypher(Key key):
+Cypher::Cypher(char* key, int length):
 key(key)
 {}
 Cypher::Cypher(const Cypher &cypher): // copy

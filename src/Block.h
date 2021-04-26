@@ -1,47 +1,44 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 
-#include <vector>
-
-struct SortedIndex
-{
-  // attributes:
-  std::vector<int> sortedIndexs;
-  int length;
-  // constructors:
-  SortedIndex(const char* bytes, int bytesLength, int begin, int length);
-};
+#include "Cypher.h"
 
 class Block
 {
   private:
     // attributes
-    std::vector<std::vector<char*>> block;
-    int size;
+    const std::vector<std::vector<char*>> block; // data
+    const int size; // dimensions
+    bool full;
     // helpers:
-    void addPreviousY(int toY);
-    void subtractPreviousY(int toY);
-    void addBytes(const char* bytes, int bytesLength, int fromIndex, int toY);
-    void subtractBytes(const char* bytes, int bytesLength, int fromIndex, int toY);
-    void flipY(int y0, int y1);
-    void flipX(int x0, int x1);
+    void addBytes(const std::vector<char> seg, int y);
+    void subtractBytes(const std::vector<char> seg, int y);
+    void addPreviousRow(int y);
+    void subtractPreviousRow(int y);
+    std::vector<char> getRow(int y);
+    std::vector<char> getCol(int x);
+    void setRow(int y, const std::vector<char> row);
+    void setCol(int x, const std::vector<char> col);
   public:
     // constructors:
     Block(); // default
-    Block(char* bytes, int bytesLength, int fromIndex, int size);
-    Block(const Block &block); // copy
+    Block(char* bytes, int length, int pos, int size); // full
+    Block(const Block& block); // copy
     // deconstructor:
     ~Block();
     // actions:
-    void load(char* bytes, int bytesLength, int fromIndex, int size);
-    void addToBlock(const char* bytes, int bytesLength, int fromIndex);
-    void subtractFromBlock(const char* bytes, int bytesLength, int fromIndex);
-    void scrambleBlock(const char* bytes, int bytesLength, int fromIndex);
-    void unscrambleBlock(const char* bytes, int bytesLength, int fromIndex);
+    void load(char* bytes, int length, int size);
+    void addToBlock(const std::vector<char> seg);
+    void subtractFromBlock(const std::vector<char> seg);
+    void scrambleBlock(const std::vector<char> seg0, const vector<char> seg1);
+    void unscrambleBlock(const std::vector<char> seg0, const vector<char> seg1);
     // helpers:
-    friend void swap(Block &block0, Block &block1);
+    friend Cypher;
+    friend void swap(Block& block0, Block& block1);
     // overloads:
-    Block & operator=(Block block);
+    Block& operator=(Block block); // assignment
 };
+
+const std::vector<char> getSortedIndex(const std::vector<char> seg, int pos); // helper
 
 #endif

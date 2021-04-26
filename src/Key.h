@@ -12,8 +12,6 @@ class Key
     std::vector<char> key;
     std::string password;
     int length;
-    // friends:
-    friend class Cypher;
     // helpers:
     char generateRandomByte(int number, int modifier);
     std::vector<char> generateKey(); // generates key of lenght length(attribute)
@@ -23,8 +21,8 @@ class Key
   public:
     // constructors:
     Key(); // default
-    Key(std::string file, std::string password, int length); // new key
-    Key(std::string file, std::string password); // existing key
+    Key(std::string file, std::string password, int length); // new
+    Key(std::string file, std::string password); // existing
     Key(const Key &key); // copy
     // deconstructor:
     ~Key();

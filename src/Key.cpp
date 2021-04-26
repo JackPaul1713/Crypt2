@@ -8,13 +8,13 @@ using namespace std;
 Key::Key(): // default
 file(""), key(), password(""), length(0)
 {}
-Key::Key(string file, string password, int length): // new key
+Key::Key(string file, string password, int length): // new
 file(file), key(), password(password), length(length)
 {
   key = generateKey();
   download();
 }
-Key::Key(string file, string password): // existing key
+Key::Key(string file, string password): // existing
 file(file), key(), password(password), length(0)
 {
   upload();

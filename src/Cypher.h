@@ -10,11 +10,11 @@ class Cypher
 {
   private:
     // attributes:
-    Key key;
+    const std::vector<char> key;
   public:
     // constructors:
     Cypher(); // default
-    Cypher(Key key);
+    Cypher(std::vector<char> key);
     Cypher(const Cypher &cypher); // copy
     // deconstructor:
     ~Cypher();
@@ -24,9 +24,10 @@ class Cypher
     void encryptFile(std::string filename);
     void decryptFile(std::string filename);
     // helpers:
-    friend void swap(Cypher &cypher0, Cypher &cypher1);
+    std::vector getSeg(int pos, int size);
+    friend void swap(Cypher& cypher0, Cypher& cypher1);
     // overloads:
-    Cypher & operator=(Cypher &cypher);
+    Cypher& operator=(Cypher& cypher);
 };
 
 #endif
