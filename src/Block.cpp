@@ -32,6 +32,15 @@ void swap(Block &block0, Block &block1)
 }
 const vector<char> getSortedIndex(vector<char> seg) // TODO
 {
+  /*
+  * values of sorted index represent to
+  * indexs of sorted index represent from
+  *
+  * sortedIndex {?, ?, ?, ?}
+  * to:   ?, ?, ?, ?...
+  * from: 0, 1, 2, 3...
+  */
+
   // variables:
   int index;
   char min;
@@ -57,6 +66,17 @@ const vector<char> getSortedIndex(vector<char> seg) // TODO
   }
   // return:
   return(sortedIndex);
+}
+const vector<char> getUnsortedIndex(vector<char> seg) // TODO
+{
+  /* 
+  * values of unsorted index represent to
+  * indexs of unsorted index represent from
+  *
+  * sortedIndex {?, ?, ?, ?}
+  * to:   ?, ?, ?, ?...
+  * from: 0, 1, 2, 3...
+  */
 }
 
 void Block::addBytes(const vector<char> seg, int y)
@@ -97,38 +117,40 @@ void Block::subtractPreviousRow(int y)
     *block[y][x] -= *block[y-1][x]; // subtract byte block[y-1][x] from block[y][x]
   }
 }
-vector<char> getRow(int y)
-{
-  vector<char> row(size);
-  for(int x = 0; x < size; x++) // loop through block[y]
-  {
-    row[x] = *block[y][x]; // set row to x values
-  }
-  return(row);
-}
-vector<char> getCol(int x)
-{
-  vector<char> col(size);
-  for(int y = 0; y < size; y++) // loop through block
-  {
-    col[y] = *block[y][x]; // set row to y values
-  }
-  return(col);
-}
-void setRow(int y, const vector<char> row)
-{
-  for(int x = 0; x < size; x++) // loop through block[y]
-  {
-    *block[y][x] = row[x]; // set x values
-  }
-}
-void setCol(int x, const vector<char> col)
-{
-  for(int y = 0; y < size; y++)
-  {
-    *block[y][x] = row[x]; // set y values
-  }
-}
+// vector<char> getRow(int y)
+// {
+//   vector<char> row(size);
+//   for(int x = 0; x < size; x++) // loop through block[y]
+//   {
+//     row[x] = *block[y][x]; // set row to x values
+//   }
+//   return(row);
+// }
+// vector<char> getCol(int x)
+// {
+//   vector<char> col(size);
+//   for(int y = 0; y < size; y++) // loop through block
+//   {
+//     col[y] = *block[y][x]; // set row to y values
+//   }
+//   return(col);
+// }
+// void setRow(int y, const vector<char> row)
+// {
+//   for(int x = 0; x < size; x++) // loop through block[y]
+//   {
+//     *block[y][x] = row[x]; // set x values
+//   }
+// }
+// void setCol(int x, const vector<char> col)
+// {
+//   for(int y = 0; y < size; y++)
+//   {
+//     *block[y][x] = row[x]; // set y values
+//   }
+// }
+
+
 
 //// actions ////
 void Block::load(char* bytes, int length, int pos, int size)
@@ -174,22 +196,24 @@ void Block::subtractFromBlock(const vector<char> seg)
 void Block::scrambleBlock(const vector<char> seg0, const vector<char> seg1) // TODO
 {
   // variables:
-  const vector<char> sortedIndex0 = getSortedIndex(seg0);
-  const vector<char> sortedIndex1 = getSortedIndex(seg1);
-  int i;
-  int r;
-  vector<char> replace;
-  vector<char> temp;
+  vector<char> sortedIndex0 = getSortedIndexTo(seg0);
+  vector<char> sortedIndex1 = getSortedIndexTo(seg1);
+  int from = 0;
+  int to = sortedIndex0[from];
   // scramble rows:
-  i = 0;
-  r = // search(i)
-  replace = getRow(i);
-  temp = getRow(r);
-  setRow 
-  for(int y = 1; y < size; y++)
+  while(findNot(-1, sortedIndex0) != -1)
   {
-    temp = getRow(sortedIndex0.at(y));
-    setRow(sortedIndex0.at(y), getRow(y))
+    if(from != to)
+    {
+      swapRows(from, to);
+      to = sortedIndex[to];
+    }
+    else
+    {
+      sortedIndex0[from] = -1;
+      from = findNot(-1, sortedIndex0);
+      to = sortedIndex0[from];
+    }
   }
   // scramble cols:
 }

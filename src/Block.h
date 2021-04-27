@@ -15,10 +15,16 @@ class Block
     void subtractBytes(const std::vector<char> seg, int y);
     void addPreviousRow(int y);
     void subtractPreviousRow(int y);
-    std::vector<char> getRow(int y);
-    std::vector<char> getCol(int x);
-    void setRow(int y, const std::vector<char> row);
-    void setCol(int x, const std::vector<char> col);
+    // std::vector<char> getRow(int y);
+    // std::vector<char> getCol(int x);
+    // void setRow(int y, const std::vector<char> row);
+    // void setCol(int x, const std::vector<char> col);
+    void std::swapRows(int y0, int y1);
+    void std::swapCols(int x0, int x1);
+    int find(int val, const std::vector<int> nums);
+    int findNot(int val, const std::vector<int> nums);
+    std::vector<int> getSortedIndex(const std::vector<char> seg, int pos);
+    std::vector<int> getUnsortedIndex(const std::vector<char> seg, int pos);
   public:
     // constructors:
     Block(); // default
@@ -38,7 +44,5 @@ class Block
     // overloads:
     Block& operator=(Block block); // assignment
 };
-
-const std::vector<char> getSortedIndex(const std::vector<char> seg, int pos); // helper
 
 #endif
